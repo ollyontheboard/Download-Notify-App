@@ -46,10 +46,16 @@ class LoadingButton @JvmOverloads constructor(
 
     }
 
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
+
+    }
 
 
     private fun drawButton(canvas: Canvas?) {
-        canvas?.drawRect(0f, 0f, width.toFloat(),height.toFloat() ,paint)
+       canvas?.drawRect(0f, 0f, width.toFloat(),height.toFloat() ,paint)
+        paint.color = Color.BLUE
+        canvas?.drawText("DOWNLOAD",0,0, width/2.toFloat(),height/2.toFloat(),paint)
 
     }
 
