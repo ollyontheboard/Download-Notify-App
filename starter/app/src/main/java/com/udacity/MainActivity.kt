@@ -38,11 +38,12 @@ class MainActivity : AppCompatActivity() {
 
 
         custom_button.setOnClickListener {
-          //  download()
-        notificationManager = ContextCompat.getSystemService(applicationContext,
-            NotificationManager::class.java)as NotificationManager
-            createChannel("Test ChannelID","Test Notification")
-            notificationManager.sendNotification("simple test notif",applicationContext)
+            custom_button.buttonState = ButtonState.Loading
+         download()
+//        notificationManager = ContextCompat.getSystemService(applicationContext,
+//            NotificationManager::class.java)as NotificationManager
+//            createChannel("Test ChannelID","Test Notification")
+//            notificationManager.sendNotification("simple test notif",applicationContext)
         }
     }
 

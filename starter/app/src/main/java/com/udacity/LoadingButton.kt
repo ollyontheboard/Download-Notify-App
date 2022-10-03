@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
+import androidx.core.content.withStyledAttributes
 import java.lang.reflect.Type
 import kotlin.properties.Delegates
 
@@ -13,36 +14,49 @@ class LoadingButton @JvmOverloads constructor(
 ) : View(context, attrs, defStyleAttr) {
     private var widthSize = 0
     private var heightSize = 0
+    private var buttonColor = 0
+    private var textColor = 0
 
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         color = Color.BLUE
         style = Paint.Style.FILL
         textAlign = Paint.Align.CENTER
-        textSize = 60f
+        textSize = 30f
         typeface= Typeface.create("",Typeface.BOLD)
     }
 
-//    private var buttonColor = Color.BLUE
-//    private var textColor = Color.WHITE
 
-    private val valueAnimator = ValueAnimator()
 
-    private var buttonState: ButtonState by Delegates.observable<ButtonState>(ButtonState.Completed) { p, old, new ->
+    private var valueAnimator = ValueAnimator()
+
+     var buttonState: ButtonState by Delegates.observable<ButtonState>(ButtonState.Completed) { p, old, new ->
+
 
     }
 
 
     init {
-
-
+        isClickable = true
+        invalidate()
+        context.withStyledAttributes(attrs, R.styleable.LoadingButton){
+            buttonColor = getColor(R.styleable.LoadingButton_buttonColor, 0)
+            buttonColor = getColor(R.styleable.LoadingButton_textColor, 0)
+        }
     }
 
+    override fun performClick(): Boolean {
+        return super.performClick()
+    }
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
      drawButton(canvas)
+    }
 
+    private fun animateButton(){
 
+        valueAnimator = ValueAnimator.ofInt(0,width)
+        valueAnimator.start()
 
     }
 
@@ -54,8 +68,8 @@ class LoadingButton @JvmOverloads constructor(
 
     private fun drawButton(canvas: Canvas?) {
        canvas?.drawRect(0f, 0f, width.toFloat(),height.toFloat() ,paint)
-        paint.color = Color.BLUE
-        canvas?.drawText("DOWNLOAD",0,0, width/2.toFloat(),height/2.toFloat(),paint)
+        paint.color = Color.WHITE
+        canvas?.drawText("DOWNLOAD", width/2f,height/2f,paint)
 
     }
 
