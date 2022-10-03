@@ -40,7 +40,7 @@ class LoadingButton @JvmOverloads constructor(
         invalidate()
         context.withStyledAttributes(attrs, R.styleable.LoadingButton){
             buttonColor = getColor(R.styleable.LoadingButton_buttonColor, 0)
-            buttonColor = getColor(R.styleable.LoadingButton_textColor, 0)
+            textColor = getColor(R.styleable.LoadingButton_textColor, 0)
         }
     }
 
