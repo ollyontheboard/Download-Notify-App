@@ -47,8 +47,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_height="60dp"
         android:layout_margin="20dp"
-        app:backgroundColor="@color/colorPrimary"
-        app:textColor="@color/white"
+        app:buttonColor1="@color/design_default_color_primary"
+        app:buttonColor2="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

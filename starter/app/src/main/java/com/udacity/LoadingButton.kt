@@ -16,9 +16,13 @@ class LoadingButton @JvmOverloads constructor(
     private var heightSize = 0
     private var buttonColor = 0
     private var textColor = 0
+    private var progress = 0
+    private var initButtonColor = 0
+    private var loadingButtonColor =0
+    private var circleprogress = 0f
 
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = Color.BLUE
+        color = initButtonColor
         style = Paint.Style.FILL
         textAlign = Paint.Align.CENTER
         textSize = 30f
@@ -30,6 +34,33 @@ class LoadingButton @JvmOverloads constructor(
     private var valueAnimator = ValueAnimator()
 
      var buttonState: ButtonState by Delegates.observable<ButtonState>(ButtonState.Completed) { p, old, new ->
+         when(new){
+             ButtonState.Loading->{
+                 valueAnimator = ValueAnimator.ofInt(0,width)
+                 valueAnimator.duration = 1000
+                 valueAnimator.repeatCount = ValueAnimator.INFINITE
+                 this.setBackgroundColor(initButtonColor)
+
+                 valueAnimator.addUpdateListener {animator->
+                     progress = animator.animatedValue as Int
+                     this.invalidate()
+                 }
+
+                 valueAnimator.start()
+
+                 valueAnimator = ValueAnimator.ofFloat(0f,360f)
+                 valueAnimator.duration= 1000
+                 valueAnimator.repeatCount = ValueAnimator.INFINITE
+                 valueAnimator.addUpdateListener {animator->
+                   circleprogress = animator.animatedValue as Float
+                     this.invalidate()
+                 }
+                 valueAnimator.start()
+
+
+             }
+
+         }
 
 
     }
@@ -37,10 +68,9 @@ class LoadingButton @JvmOverloads constructor(
 
     init {
         isClickable = true
-        invalidate()
         context.withStyledAttributes(attrs, R.styleable.LoadingButton){
-            buttonColor = getColor(R.styleable.LoadingButton_buttonColor, 0)
-            textColor = getColor(R.styleable.LoadingButton_textColor, 0)
+            initButtonColor = getColor(R.styleable.LoadingButton_buttonColor1,0)
+            loadingButtonColor = getColor(R.styleable.LoadingButton_buttonColor2,0)
         }
     }
 
@@ -53,12 +83,6 @@ class LoadingButton @JvmOverloads constructor(
      drawButton(canvas)
     }
 
-    private fun animateButton(){
-
-        valueAnimator = ValueAnimator.ofInt(0,width)
-        valueAnimator.start()
-
-    }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
@@ -67,9 +91,20 @@ class LoadingButton @JvmOverloads constructor(
 
 
     private fun drawButton(canvas: Canvas?) {
+        paint.color = Color.BLUE
        canvas?.drawRect(0f, 0f, width.toFloat(),height.toFloat() ,paint)
-        paint.color = Color.WHITE
+
+
+
+        paint.color = loadingButtonColor
+        canvas?.drawRect(0f, 0f, width.toFloat() * progress/100 ,height.toFloat() ,paint)
+        paint.color = Color.YELLOW
+        canvas?.drawArc(width/1.2f,height/10f, width.toFloat(), height.toFloat(), 0f,circleprogress,true,paint)
+
+        paint.color = Color.BLACK
         canvas?.drawText("DOWNLOAD", width/2f,height/2f,paint)
+
+
 
     }
 
