@@ -14,8 +14,6 @@ class LoadingButton @JvmOverloads constructor(
 ) : View(context, attrs, defStyleAttr) {
     private var widthSize = 0
     private var heightSize = 0
-    private var buttonColor = 0
-    private var textColor = 0
     private var progress = 0
     private var initButtonColor = 0
     private var loadingButtonColor =0
@@ -56,6 +54,11 @@ class LoadingButton @JvmOverloads constructor(
                      this.invalidate()
                  }
                  valueAnimator.start()
+
+             }
+
+             ButtonState.Completed->{
+
 
 
              }
