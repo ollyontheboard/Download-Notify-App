@@ -83,6 +83,16 @@ class MainActivity : AppCompatActivity() {
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             val id = intent?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
+            val query = DownloadManager.Query()
+            id?.let {
+                query.setFilterById(it)
+            }
+            val downloadManager = getSystemService(Context.DOWNLOAD_SERVICE)
+                    as DownloadManager
+           val cursor = downloadManager.query(query)
+
+
+
         }
     }
 //Notifications need to sent on specific channels on newer api versions
