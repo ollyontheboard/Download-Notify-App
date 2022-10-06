@@ -83,13 +83,35 @@ class MainActivity : AppCompatActivity() {
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             val id = intent?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
-            val query = DownloadManager.Query()
-            id?.let {
-                query.setFilterById(it)
+            if(downloadID==id){
+
+                if(intent.action.equals(DownloadManager.ACTION_DOWNLOAD_COMPLETE)){
+                    val query = DownloadManager.Query()
+                    query.setFilterById(intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID,0))
+
+                    val downloadManager = getSystemService(Context.DOWNLOAD_SERVICE)
+                            as DownloadManager
+                    val cursor = downloadManager.query(query)
+                    if(cursor.moveToFirst()){
+                        if(cursor.count>0){
+                         val status=    cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS))
+                            if(status==DownloadManager.STATUS_SUCCESSFUL){
+                                custom_button.buttonState = ButtonState.Completed
+                                //send notification
+                            }
+                            else{
+                                //send failed notification
+                            }
+                        }
+                    }
+
+                }
             }
-            val downloadManager = getSystemService(Context.DOWNLOAD_SERVICE)
-                    as DownloadManager
-           val cursor = downloadManager.query(query)
+
+
+
+
+
 
 
 

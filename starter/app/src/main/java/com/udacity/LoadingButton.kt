@@ -30,6 +30,7 @@ class LoadingButton @JvmOverloads constructor(
 
 
     private var valueAnimator = ValueAnimator()
+    private var circleAnimator = ValueAnimator()
 
      var buttonState: ButtonState by Delegates.observable<ButtonState>(ButtonState.Completed) { p, old, new ->
          when(new){
@@ -46,18 +47,24 @@ class LoadingButton @JvmOverloads constructor(
 
                  valueAnimator.start()
 
-                 valueAnimator = ValueAnimator.ofFloat(0f,360f)
-                 valueAnimator.duration= 1000
-                 valueAnimator.repeatCount = ValueAnimator.INFINITE
-                 valueAnimator.addUpdateListener {animator->
+                 circleAnimator = ValueAnimator.ofFloat(0f,360f)
+                 circleAnimator.duration= 1000
+                 circleAnimator.repeatCount = ValueAnimator.INFINITE
+                 circleAnimator.addUpdateListener {animator->
                    circleprogress = animator.animatedValue as Float
                      this.invalidate()
                  }
-                 valueAnimator.start()
+                 circleAnimator.start()
 
              }
 
              ButtonState.Completed->{
+
+                 valueAnimator.end()
+                 circleAnimator.end()
+                 progress = 0
+                 circleprogress= 0f
+                 invalidate()
 
 
 
