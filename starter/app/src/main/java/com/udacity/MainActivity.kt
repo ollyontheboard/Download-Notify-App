@@ -26,6 +26,7 @@ import kotlinx.android.synthetic.main.content_main.*
 class MainActivity : AppCompatActivity() {
 
     private var downloadID: Long = 0
+     var index = -1
 
 
     private lateinit var notificationManager: NotificationManager
@@ -34,6 +35,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var selectedURL: String
     lateinit var binding: ActivityMainBinding
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -41,6 +43,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         registerReceiver(receiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
+
 
 
 
@@ -53,7 +56,7 @@ class MainActivity : AppCompatActivity() {
             else{
                 custom_button.buttonState = ButtonState.Loading
                 val radioButton = findViewById<RadioButton>(radioButtonId)
-                val index = downloadRadioGroup.indexOfChild(radioButton)
+                index = downloadRadioGroup.indexOfChild(radioButton)
 
                 if(index==0){
                     Toast.makeText(this,"Downloading Glide",Toast.LENGTH_SHORT).show()
@@ -73,10 +76,7 @@ class MainActivity : AppCompatActivity() {
                 download(selectedURL)
             }
 
-//        notificationManager = ContextCompat.getSystemService(applicationContext,
-//            NotificationManager::class.java)as NotificationManager
-//            createChannel("Test ChannelID","Test Notification")
-//            notificationManager.sendNotification("simple test notif",applicationContext)
+
         }
     }
 
@@ -97,7 +97,7 @@ class MainActivity : AppCompatActivity() {
                          val status=    cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS))
                             if(status==DownloadManager.STATUS_SUCCESSFUL){
                                 custom_button.buttonState = ButtonState.Completed
-                                //send notification
+                                sendNotification(status)
                             }
                             else{
                                 //send failed notification
@@ -118,17 +118,20 @@ class MainActivity : AppCompatActivity() {
         }
     }
 //Notifications need to sent on specific channels on newer api versions
-    fun createChannel(channelId: String, channelName: String) {
+    fun sendNotification(status: Int) {
+    notificationManager = ContextCompat.getSystemService(applicationContext,
+        NotificationManager::class.java)as NotificationManager
+    notificationManager.sendNotification(getString(R.string.notification_description),applicationContext,status,selectedURL)
         if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.O){
             val notificationChannel = NotificationChannel(
-                channelId,
-                channelName,
+                "StatusDownloadID",
+                "Download Status",
                 NotificationManager.IMPORTANCE_LOW
             )
             notificationChannel.enableLights(true)
             notificationChannel.lightColor = Color.RED
             notificationChannel.enableVibration(true)
-            notificationChannel.description = "A Test Notification"
+            notificationChannel.description = "Notify user of download Status"
 
            notificationManager.createNotificationChannel(notificationChannel)
         }

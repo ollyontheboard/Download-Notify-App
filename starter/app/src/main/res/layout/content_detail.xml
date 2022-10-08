@@ -6,6 +6,45 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".DetailActivity"
-    tools:showIn="@layout/activity_detail">
+    tools:showIn="@layout/activity_detail"
+    android:padding="16dp"
+    >
+
+
+    <TextView
+        android:id="@+id/repoTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/repository"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="12dp"
+        />
+    <TextView
+        android:id="@+id/repoNameTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintStart_toEndOf="@id/repoTV"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/statusTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/status"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/repoTV" />
+
+    <TextView
+        android:id="@+id/statusValueTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintStart_toEndOf="@id/statusTV"
+        app:layout_constraintTop_toBottomOf="@id/repoNameTV" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
