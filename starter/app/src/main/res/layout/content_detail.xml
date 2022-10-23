@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:layoutDescription="@xml/detail_motion_scene"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".DetailActivity"
     tools:showIn="@layout/activity_detail"
@@ -18,33 +19,48 @@
         android:text="@string/repository"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="12dp"
+        app:layout_goneMarginBottom="20dp"
+
         />
+
     <TextView
         android:id="@+id/repoNameTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
+        android:text="checking"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/repoTV"
-        app:layout_constraintTop_toTopOf="parent" />
+       app:layout_constraintTop_toBottomOf="@id/repoTV"/>
 
 
     <TextView
         android:id="@+id/statusTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
         android:text="@string/status"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/repoTV" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/statusValueTV"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/statusValueTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/statusTV"
         app:layout_constraintTop_toBottomOf="@id/repoNameTV" />
 
+    <Button
+        android:id="@+id/doneBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/doneBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/design_default_color_primary"
+      app:layout_constraintBottom_toBottomOf="parent"
+        />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.motion.widget.MotionLayout>

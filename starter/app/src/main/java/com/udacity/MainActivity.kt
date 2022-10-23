@@ -100,7 +100,9 @@ class MainActivity : AppCompatActivity() {
                                 sendNotification(status)
                             }
                             else{
-                                //send failed notification
+                                custom_button.buttonState = ButtonState.Completed
+                                sendNotification(status)
+
                             }
                         }
                     }
