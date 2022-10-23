@@ -22,6 +22,25 @@
         motion:layout_constraintEnd_toEndOf="parent"
         motion:layout_constraintBottom_toBottomOf="parent"
         />
+    <Constraint
+        android:id="@+id/statusValueTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0.0"
+        motion:layout_constraintEnd_toEndOf="parent"
+        motion:layout_constraintStart_toEndOf="@id/statusTV"
+        motion:layout_constraintTop_toBottomOf="@id/repoNameTV"
+        />
+    <Constraint
+        android:id="@+id/repoNameTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:alpha="0.0"
+        motion:layout_constraintEnd_toEndOf="parent"
+        motion:layout_constraintStart_toEndOf="@id/repoTV"
+        motion:layout_constraintTop_toBottomOf="@id/repoTV"
+        />
+
 
 </ConstraintSet>
     <ConstraintSet android:id="@+id/end">
@@ -31,6 +50,24 @@
             android:layout_height="wrap_content"
             motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintBottom_toBottomOf="parent"
+            />
+        <Constraint
+            android:id="@+id/statusValueTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="1.0"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toEndOf="@id/statusTV"
+            motion:layout_constraintTop_toBottomOf="@id/repoNameTV"
+            />
+        <Constraint
+            android:id="@+id/repoNameTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="1.0"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toEndOf="@id/repoTV"
+            motion:layout_constraintTop_toBottomOf="@id/repoTV"
             />
 
     </ConstraintSet>
